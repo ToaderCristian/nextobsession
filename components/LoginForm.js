@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { createClient as createPlainClient } from "@supabase/supabase-js";
 
 export default function LoginForm({ next }) {
   const router = useRouter();
@@ -16,7 +17,11 @@ export default function LoginForm({ next }) {
   async function sendEmail(e) {
     e.preventDefault();
     setBusy(true); setErr("");
-    const { error } = await createClient().auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
+    // flux „implicit”: linkul din email merge din orice browser (și din aplicația de email)
+    const mailer = createPlainClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+      auth: { flowType: "implicit", persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    });
+    const { error } = await mailer.auth.signInWithOtp({ email, options: { emailRedirectTo: `${site}/auth/hash?next=${encodeURIComponent(next)}` } });
     setBusy(false);
     if (error) setErr(error.status === 429 ? "Prea multe emailuri trimise. Mai încearcă peste câteva minute." : "Nu am putut trimite emailul. Verifică adresa și încearcă din nou.");
     else setSent(true);
@@ -41,9 +46,9 @@ export default function LoginForm({ next }) {
       <form onSubmit={verifyCode} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <div className="mine">
           <b>Verifică emailul</b>
-          <span className="hint">Ți-am trimis un cod pe {email}. Scrie-l mai jos sau apasă pe linkul din email.</span>
+          <span className="hint">Ți-am trimis un link pe {email}. Apasă pe el, merge și din aplicația de email. Dacă emailul conține un cod, îl poți scrie mai jos.</span>
         </div>
-        <label className="f">Codul din email
+        <label className="f">Cod din email (opțional)
           <input className="box" inputMode="numeric" autoComplete="one-time-code" maxLength={10} required value={code}
             onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))} style={{ fontSize: 22, letterSpacing: ".3em", textAlign: "center" }} />
         </label>
@@ -64,7 +69,7 @@ export default function LoginForm({ next }) {
       <form onSubmit={sendEmail} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <label className="f">Email<input className="box" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></label>
         {err && <span className="err">{err}</span>}
-        <button className="cta" type="submit" disabled={busy}>{busy ? "SE TRIMITE…" : "TRIMITE-MI CODUL"}</button>
+        <button className="cta" type="submit" disabled={busy}>{busy ? "SE TRIMITE…" : "TRIMITE-MI LINKUL"}</button>
       </form>
     </div>
   );
