@@ -35,8 +35,9 @@ export default async function SplitPage({ params }) {
   ];
 
   return (
-    <>
-      <div className="big"><Bottle tint={s.tint} w={140} h={190} /><LotTag verified={s.lot_verified} /></div>
+    <div className="split-layout">
+      <div className="split-media"><div className="big"><Bottle tint={s.tint} w={140} h={190} /><LotTag verified={s.lot_verified} /></div></div>
+      <div className="split-info">
       <div className="pad">
         <Link className="houselink" href={`/?q=${encodeURIComponent(s.house)}&oras=${encodeURIComponent(s.city)}`}>{s.house}</Link>
         <h1 className="title">{s.name}</h1>
@@ -72,6 +73,7 @@ export default async function SplitPage({ params }) {
       </section>
       <Accordion panels={panels} initial="det" />
       {!own && <ReportButton splitId={s.id} />}
-    </>
+      </div>
+    </div>
   );
 }

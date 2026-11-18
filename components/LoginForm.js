@@ -27,8 +27,12 @@ export default function LoginForm({ next }) {
   if (sent) return <div className="mine"><b>Verifică emailul</b><span className="hint">Ți-am trimis un link de intrare pe {email}. Deschide-l de pe acest dispozitiv.</span></div>;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <button className="ghost" onClick={google}>Continuă cu Google</button>
-      <span className="hint" style={{ textAlign: "center" }}>sau</span>
+      {process.env.NEXT_PUBLIC_GOOGLE_LOGIN === "1" && (
+        <>
+          <button className="ghost" onClick={google}>Continuă cu Google</button>
+          <span className="hint" style={{ textAlign: "center" }}>sau</span>
+        </>
+      )}
       <form onSubmit={emailLogin} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <label className="f">Email<input className="box" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></label>
         {err && <span className="err">{err}</span>}

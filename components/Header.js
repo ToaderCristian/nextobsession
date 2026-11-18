@@ -43,6 +43,12 @@ export default function Header() {
         </Link>
       </div>
       {home && <Suspense fallback={null}><SearchBox /></Suspense>}
+      <nav className="topnav" aria-label="Meniu principal">
+        <Link href="/" aria-current={path === "/" ? "page" : undefined}>Acasă</Link>
+        <Link href="/posteaza" aria-current={path.startsWith("/posteaza") ? "page" : undefined}>Postează un split</Link>
+        <Link href="/rezervari" aria-current={path.startsWith("/rezervari") ? "page" : undefined}>Rezervări</Link>
+        <Link href="/profil" aria-current={path.startsWith("/profil") ? "page" : undefined}>Profil</Link>
+      </nav>
     </header>
   );
 }

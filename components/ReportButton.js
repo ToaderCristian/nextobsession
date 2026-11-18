@@ -7,9 +7,9 @@ export default function ReportButton({ splitId }) {
   const [reason, setReason] = useState("");
   const [msg, setMsg] = useState("");
   const [pending, start] = useTransition();
-  if (msg === "ok") return <p className="okmsg" style={{ margin: "16px" }}>Mulțumim, verificăm anunțul.</p>;
+  if (msg === "ok") return <p className="okmsg report">Mulțumim, verificăm anunțul.</p>;
   return (
-    <div style={{ margin: "18px 16px 0" }}>
+    <div className="report">
       {!open ? (
         <button className="linkbtn" style={{ color: "var(--muted)", fontSize: 13 }} onClick={() => setOpen(true)}>Raportează anunțul</button>
       ) : (

@@ -22,9 +22,16 @@ export default async function Home({ searchParams }) {
         <Suspense fallback={<b>{city}</b>}><CitySelect city={city} /></Suspense>
       </div>
       <section className="hero">
+        <div className="hero-text">
         <small>CUM FUNCȚIONEAZĂ</small>
         <h1>Împarți sticla. Plătești doar ml-ii tăi.</h1>
         <p>Prețul de achiziție împărțit pe ml, fără adaos. Plătești vânzătorului la întâlnire.</p>
+        </div>
+        <ol className="hero-steps">
+          <li><b>Alegi split-ul</b><span>Parfum, oraș, vânzător cu recenzii.</span></li>
+          <li><b>Rezervi ml-ii</b><span>2, 5 sau 10 ml, plus sticluță dacă vrei.</span></li>
+          <li><b>Te întâlnești</b><span>Decantare pe loc, plată direct vânzătorului.</span></li>
+        </ol>
       </section>
       <section className="sec">
         <div className="sechead"><h2>Split-uri</h2><span className="count">{splits.length} {splits.length === 1 ? "activ" : "active"}</span></div>
