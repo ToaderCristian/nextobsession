@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Bottle from "@/components/Bottle";
-import { fmt } from "@/lib/constants";
+import { fmt, fmt1 } from "@/lib/constants";
 
 export function LotTag({ verified }) {
   return verified ? <span className="tag">LOT VERIFICAT</span> : <span className="tag pending">LOT ÎN VERIFICARE</span>;
@@ -15,7 +15,7 @@ export default function SplitCard({ s }) {
         <span className="pname">{s.name}</span>
         <span className="sub">{s.concentration} · split {s.total_ml} ml</span>
         <span className="sub" style={{ marginTop: 2 }}>
-          {s.reviews ? <><span className="star">★</span> {fmt(s.rating.toFixed(1))} ({s.reviews}) · </> : "Nou · "}
+          {s.reviews ? <><span className="star">★</span> {fmt1(s.rating)} ({s.reviews}) · </> : "Nou · "}
           {s.seller?.username}
         </span>
         <span className="price">{fmt(s.price_per_ml)} lei <span>/ ml</span></span>

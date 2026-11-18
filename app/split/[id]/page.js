@@ -5,7 +5,7 @@ import { LotTag } from "@/components/SplitCard";
 import ReserveBox from "@/components/ReserveBox";
 import Accordion from "@/components/Accordion";
 import ReportButton from "@/components/ReportButton";
-import { fmt, getSplit, getUser, myReservationFor, participantsOf } from "@/lib/data";
+import { fmt, fmt1, getSplit, getUser, myReservationFor, participantsOf } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +43,7 @@ export default async function SplitPage({ params }) {
         <h1 className="title">{s.name}</h1>
         <span style={{ fontSize: 16, fontWeight: 700 }}>{s.concentration} · sticlă {s.bottle_ml} ml</span>
         <div className="rate">
-          {s.reviews ? <><span className="star" style={{ letterSpacing: ".08em" }}>{stars(s.rating)}</span><b>{fmt(s.rating.toFixed(1))}</b></> : <b>Vânzător nou</b>}
+          {s.reviews ? <><span className="star" style={{ letterSpacing: ".08em" }}>{stars(s.rating)}</span><b>{fmt1(s.rating)}</b></> : <b>Vânzător nou</b>}
           <Link className="linkbtn" href={`/vanzator/${s.seller_id}`}>({s.reviews} {s.reviews === 1 ? "recenzie" : "recenzii"} vânzător)</Link>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default async function SplitPage({ params }) {
           <span className="av">{(s.seller?.username || "?").slice(0, 2).toUpperCase()}</span>
           <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <b style={{ fontSize: 16 }}>{s.seller?.username}{s.seller?.verified ? <span className="verified">✓ VERIFICAT</span> : <span className="newb">MEMBRU NOU</span>}</b>
-            <span className="hint">{s.reviews ? <><span className="star">★</span> {fmt(s.rating.toFixed(1))} · </> : null}{s.seller?.splits_done || 0} split-uri finalizate</span>
+            <span className="hint">{s.reviews ? <><span className="star">★</span> {fmt1(s.rating)} · </> : null}{s.seller?.splits_done || 0} split-uri finalizate</span>
           </span>
         </div>
         <Link className="ghost" href={`/vanzator/${s.seller_id}`}>Vezi recenziile vânzătorului ({s.reviews})</Link>

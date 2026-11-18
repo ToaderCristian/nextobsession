@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import SplitCard from "@/components/SplitCard";
-import { fmt, getSeller, listSplits } from "@/lib/data";
+import { fmt1, getSeller, listSplits } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 const stars = (n) => "★★★★★".slice(0, Math.round(n)) + "☆☆☆☆☆".slice(0, 5 - Math.round(n));
@@ -25,7 +25,7 @@ export default async function SellerPage({ params }) {
       </div>
       <div className="rsum" style={{ marginTop: 8 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <span className="n">{count ? fmt(rating.toFixed(1)) : "–"}</span>
+          <span className="n">{count ? fmt1(rating) : "–"}</span>
           <span className="star" style={{ letterSpacing: ".08em" }}>{stars(rating)}</span>
           <span className="hint">{count} {count === 1 ? "recenzie" : "recenzii"}</span>
         </div>
